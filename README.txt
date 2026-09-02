@@ -29,3 +29,6 @@ Copyright © 2026 Neo Ctopher
 This software is provided without warranty of any kind, as described in the GNU Affero General Public License.
 
 Swiss Ephemeris and its associated files remain subject to their respective copyright notices and licensing terms.
+
+
+Requires Swiss Ephemeris and the appropriate Perl bindings to be installed separately.
