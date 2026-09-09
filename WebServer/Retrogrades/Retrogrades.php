@@ -27,7 +27,7 @@ if (session_status() == PHP_SESSION_NONE) {
         
         
         
-        <link rel="stylesheet" href="https://use.typekit.net/cfx5zcm.css">
+      
         <link href="https://neo.ctopher.me/css/bootstrap.css" rel="stylesheet" type="text/css">
         <link href="https://neo.ctopher.me/css/misfit-ctopher-css.css?reload=true" rel="stylesheet" type="text/css">
         <script src="https://neo.ctopher.me/js/jquery-3.5.1.min.js"></script>

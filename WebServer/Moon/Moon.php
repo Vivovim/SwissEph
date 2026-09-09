@@ -71,8 +71,7 @@ require('timezone.php');
         <title>Neo Ctopher | Current Moon Zodiac Phases for today!</title>
         
         
-        
-        <link rel="stylesheet" href="https://use.typekit.net/cfx5zcm.css">
+    
         <link href="css/bootstrap.css" rel="stylesheet" type="text/css" />
               
 <link href="css/misfit-ctopher-css.css" rel="stylesheet" type="text/css" />

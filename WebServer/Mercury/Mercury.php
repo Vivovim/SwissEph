@@ -73,8 +73,7 @@ require('timezone.php');
         <title>Neo Ctopher | Mercury Retrogrades!</title>
         
         
-        
-        <link rel="stylesheet" href="https://use.typekit.net/cfx5zcm.css">
+
         <link href="css/bootstrap.css" rel="stylesheet" type="text/css">
         <link href="css/misfit-ctopher-css.css?reload=true" rel="stylesheet" type="text/css">
         <script src="js/jquery-3.5.1.min.js"></script>
