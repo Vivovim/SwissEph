@@ -1,5 +1,5 @@
 <?php
-set_include_path( '/home/misfitx/neo/BoxINC/' );
+set_include_path( '/__HIDDEN__/' );
 date_default_timezone_set( "America/Phoenix" );
 
 ini_set( 'session.use_only_cookies', true );
