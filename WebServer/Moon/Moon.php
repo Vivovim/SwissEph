@@ -1,5 +1,5 @@
 <?php
-set_include_path( '/__HIDDEN__/' );
+set_include_path( '__HIDDEN__' );
 date_default_timezone_set( "America/Phoenix" );
 
 
@@ -8,7 +8,7 @@ if (session_status() == PHP_SESSION_NONE) {
     session_start();
 }
 
-require('swish.php');
+require('swish.php'); // database auth file
 
 
 
@@ -71,7 +71,8 @@ require('timezone.php');
         <title>Neo Ctopher | Current Moon Zodiac Phases for today!</title>
         
         
-    
+        
+        <link rel="stylesheet" href="https://use.typekit.net/cfx5zcm.css">
         <link href="css/bootstrap.css" rel="stylesheet" type="text/css" />
               
 <link href="css/misfit-ctopher-css.css" rel="stylesheet" type="text/css" />
@@ -170,10 +171,29 @@ $rows2		= $results2->num_rows;
 $sign = $row2['sign'];
 $deg = $row2['deg'];
 $lon	= $row2['lon'];
+$data = $row2['phase'];
+$TitleX = $row2['date'];
+
+
 
 ++$ix;
 	 
 }	 
+
+$Zonex	= new DateTimeZone( "UTC" );
+	$titlex2 = "@" . $TitleX;
+	
+	
+	$titlex3= new DateTime($titlex2, $Zonex);
+$titlex3->setTimeZone(new DateTimeZone($TimeZone1));
+$titlex3 = $titlex3->format('r');
+	
+
+
+
+
+
+
 
 $connection = new mysqli($host, $username, $password, $db);
 if ($connection->connect_error) die ($connection->connect_error);
@@ -194,7 +214,7 @@ print "<br/>";
  
  $row		= $results->fetch_array(MYSQLI_ASSOC);
 $title = $row['date'];
-$data = $row['phase'];
+// $data = $row['phase'];
 $new	= $row['nmoon'];
 $fq		= $row['fq'];
 $fmoon	= $row['fmoon'];
@@ -369,7 +389,7 @@ print '<div class="col-lg-12 float-left"><span class="NAV_Font">Age In Days: </s
 
 
 	 print '<div class="clearfix"></div>';
-print '<div class="col-lg-12"><span class="NAV_Font">Updated:</span><span class="Working_H1B"> '. $title2 . '</span></div>';
+print '<div class="col-lg-12"><span class="NAV_Font">Updated:</span><span class="Working_H1B"> ' . $titlex3 . '</span></div>';
 	 print '<div class="clearfix"></div>';
 
 print '<div class="clearfix"></div>';
@@ -429,8 +449,14 @@ print '<div class="clearfix">&nbsp;</div>';
 		<div class="About_Body">Set your timezone here: <a href="https://neo.ctopher.me/Overview.php">TimeZone Settings</a></div>
 			
 			
-			<div class="About_Body">See <a href="/About.php">About page</a> to see how our calculations are done</div>
-			
+			<div class="About_Body">
+    Astronomical calculations powered by
+    <a href="https://www.astro.com/swisseph/" target="_blank" rel="noopener">
+        Swiss Ephemeris
+    </a>.
+    
+    <p>Read our <a href="https://neo.ctopher.me/About.php">About Page</a> for more details</p>
+</div>
 
 		<div class="About_Body">BETA TESTING <a href="https://neo.ctopher.me/Moon-TESTING.php">Check it</a></div>
 		

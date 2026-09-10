@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: localhost
--- Generation Time: Sep 09, 2026 at 03:56 AM
+-- Generation Time: Sep 10, 2026 at 12:56 AM
 -- Server version: 8.4.11-0ubuntu0.26.04.1
 -- PHP Version: 8.5.4
 
@@ -32,7 +32,8 @@ CREATE TABLE `moonsign` (
   `sign` varchar(255) NOT NULL,
   `deg` varchar(255) NOT NULL,
   `lon` varchar(255) NOT NULL,
-  `phase` varchar(255) DEFAULT NULL
+  `phase` varchar(255) DEFAULT NULL,
+  `date` bigint UNSIGNED NOT NULL DEFAULT (unix_timestamp())
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
 --
