@@ -139,7 +139,7 @@ $Venusx4 = date("r", $Venusx2);
 $Marsx1 = $planet['Mars']['Retrograde_Begin'];
 $Marsx2 = $planet['Mars']['Direct_Begin'];
 
-$Marxx3 = date("r", $Marsx1);
+$Marsx3 = date("r", $Marsx1);
 $Marsx4 = date("r", $Marsx2);
 
 
