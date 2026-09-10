@@ -1,5 +1,5 @@
 <?php
-set_include_path( '/__HIDDEN__/' );
+set_include_path( '__HIDDEN__' );
 date_default_timezone_set( "America/Phoenix" );
 
 ini_set( 'session.use_only_cookies', true );
@@ -27,7 +27,7 @@ if (session_status() == PHP_SESSION_NONE) {
         
         
         
-      
+        <link rel="stylesheet" href="https://use.typekit.net/cfx5zcm.css">
         <link href="https://neo.ctopher.me/css/bootstrap.css" rel="stylesheet" type="text/css">
         <link href="https://neo.ctopher.me/css/misfit-ctopher-css.css?reload=true" rel="stylesheet" type="text/css">
         <script src="https://neo.ctopher.me/js/jquery-3.5.1.min.js"></script>
@@ -102,7 +102,83 @@ $pluto = $row['pluto'];
 $datex = date("r", $date);
 ?>
 
+<?php
 
+
+$sql = "
+    SELECT Planet, Retrograde_Begin, Direct_Begin
+    FROM Planets_Retrogrades
+    WHERE Planet <> 'Mercury'
+    ORDER BY Retrograde_Begin ASC, Direct_Begin ASC
+";
+
+$result = $connection->query($sql);
+if ($result === false) {
+    die($connection->error);
+}
+
+$planet = [];
+
+while ($row = $result->fetch_assoc()) {
+    // If a planet has multiple rows, retain its latest retrograde period.
+    $planet[$row['Planet']] = [
+        'Retrograde_Begin' => (int) $row['Retrograde_Begin'],
+        'Direct_Begin'    => (int) $row['Direct_Begin'],
+    ];
+}
+
+$result->free();
+$connection->close();
+
+$Venusx1 = $planet['Venus']['Retrograde_Begin'];
+$Venusx2 = $planet['Venus']['Direct_Begin'];
+$Venusx3 = date("r", $Venusx1);
+$Venusx4 = date("r", $Venusx2);
+
+
+$Marsx1 = $planet['Mars']['Retrograde_Begin'];
+$Marsx2 = $planet['Mars']['Direct_Begin'];
+
+$Marxx3 = date("r", $Marsx1);
+$Marsx4 = date("r", $Marsx2);
+
+
+
+$Jupiterx1 = $planet['Jupiter']['Retrograde_Begin'];
+$Jupiterx2 = $planet['Jupiter']['Direct_Begin'];
+
+$Jupiterx3 = date("r", $Jupiterx1);
+$Jupiterx4 = date("r", $Jupiterx2);
+
+
+
+$Saturnx1 = $planet['Saturn']['Retrograde_Begin'];
+$Saturnx2 = $planet['Saturn']['Direct_Begin'];
+
+$Saturnx3 = date("r", $Saturnx1);
+$Saturnx4 = date("r", $Saturnx2);
+
+
+
+$Uranusx1 = $planet['Uranus']['Retrograde_Begin'];
+$Uranusx2 = $planet['Uranus']['Direct_Begin'];
+
+$Uranusx3	= date("r", $Uranusx1);
+$Uranusx4	= date("r", $Uranusx2);
+
+$Neptunex1 = $planet['Neptune']['Retrograde_Begin'];
+$Neptunex2 = $planet['Neptune']['Direct_Begin'];
+
+$Neptunex3	= date("r", $Neptunex1);
+$Neptunex4	= date("r", $Neptunex2);
+
+$Plutox1 = $planet['Pluto']['Retrograde_Begin'];
+$Plutox2 = $planet['Pluto']['Direct_Begin'];
+
+$Plutox3 = date("r", $Plutox1);
+$Plutox4 = date("r", $Plutox2);
+
+?>
         
         
         
@@ -183,8 +259,8 @@ Illusion of Backward Motion: As Earth passes the outer planet or is passed by an
 <hr>
 <div class="DYKPlate">Venus</div>
 
-<p>Retrograde Starts: Fri Oct  2 12:17:26 2026</p>
-<p>Retrograde Ends: Fri Nov 13 05:32:26 2026</p>
+<p>Retrograde Starts: <?php echo $Venusx3; ?></p>
+<p>Retrograde Ends: <?php echo $Venusx4; ?></p>
 </div>	
 <p>&nbsp;</p>
 <p>&nbsp;</p>	
@@ -195,8 +271,8 @@ Illusion of Backward Motion: As Earth passes the outer planet or is passed by an
 <div class="clearfix"></div>
 <hr>
 <div class="DYKPlate">Mars</div>
-<p>Retrograde Starts: Sat Jan  9 18:01:05 2027</p>
-<p>Retrograde Ends: Wed Mar 31 19:11:05 2027</p>
+<p>Retrograde Starts: <?php echo $Marsx3; ?></p>
+<p>Retrograde Ends: <?php echo $Marsx4; ?></p>
 </div>
 
 
@@ -210,9 +286,8 @@ Illusion of Backward Motion: As Earth passes the outer planet or is passed by an
 <hr>
 <div class="DYKPlate">Jupiter</div>
 
-<p>Retrograde Starts: Sat Dec 12 06:00:00 2026</p>
-<p>Retrograde Ends: Mon Apr 12 07:20:00 2027</p>
-
+<p>Retrograde Starts: <?php echo $Jupiterx3; ?></p>
+<p>Retrograde Ends: <?php echo $Jupiterx4; ?></p>
 </div>	
 	
 <p>&nbsp;</p>
@@ -227,9 +302,8 @@ Illusion of Backward Motion: As Earth passes the outer planet or is passed by an
 <hr>
 <div class="DYKPlate">Saturn</div>
 
-<p>Retrograde Starts: Sun Jul 26 01:00:00 2026</p>
-<p>Retrograde Ends: Thu Dec 10 04:25:00 2026</p>
-
+<p>Retrograde Starts: <?php echo $Saturnx3; ?></p>
+<p>Retrograde Ends: <?php echo $Saturnx4; ?></p>
 
 </div>
 
@@ -243,9 +317,8 @@ Illusion of Backward Motion: As Earth passes the outer planet or is passed by an
 <div class="clearfix"></div>
 <hr>
 <div class="DYKPlate">Uranus</div>
-<p>Retrograde Starts: Wed Sep  9 23:36:01 2026</p>
-<p>Retrograde Ends: Sun Feb  7 17:26:01 2027</p>
-
+<p>Retrograde Starts: <?php echo $Uranusx3; ?></p>
+<p>Retrograde Ends: <?php echo $Uranusx4; ?></p>
 </div>
 
 
@@ -259,9 +332,8 @@ Illusion of Backward Motion: As Earth passes the outer planet or is passed by an
 <hr>
 <div class="DYKPlate">Neptune</div>
 
-<p>Retrograde Starts: Mon Jul  6 16:30:00 2026</p>
-<p>Retrograde Ends: Sat Dec 12 03:10:00 2026</p>
-
+<p>Retrograde Starts: <?php echo $Neptunex3; ?></p>
+<p>Retrograde Ends: <?php echo $Neptunex4; ?></p>
 
 
 </div>
@@ -277,14 +349,20 @@ Illusion of Backward Motion: As Earth passes the outer planet or is passed by an
 <hr>
 <div class="DYKPlate">Pluto</div>
 
-<p>Retrograde Starts: Tue May  5 21:00:05 2026</p>
-<p>Retrograde Ends: Thu Oct 15 07:10:05 2026</p>
-
+<p>Retrograde Starts: <?php echo $Plutox3; ?></p>
+<p>Retrograde Ends: <?php echo $Plutox4; ?></p>
 </div>
 
 <div class="clearfix"></div> 
 		
-		
+		<div class="About_Body">
+    Astronomical calculations powered by
+    <a href="https://www.astro.com/swisseph/" target="_blank" rel="noopener">
+        Swiss Ephemeris
+    </a>.
+    
+    <p>Read our <a href="https://neo.ctopher.me/About.php">About Page</a> for more details</p>
+</div>
 		
 	</div>
 		
