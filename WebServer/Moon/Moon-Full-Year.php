@@ -125,6 +125,12 @@ usort($moonEvents, static function ($left, $right) {
     return $left['stamp'] <=> $right['stamp'];
 });
 
+// A Blue Moon uses the same image as a Full Moon.
+$moonPhaseImages = [
+    'Full Moon' => '05-full-moon.png',
+    'Blue Moon' => '05-full-moon.png',
+];
+
 ?>
 <!DOCTYPE html>
 <html lang="en" >
@@ -156,6 +162,65 @@ usort($moonEvents, static function ($left, $right) {
 
 <script src="js/secondsXT.js"></script>
 
+        <style>
+            .moon-events {
+                display: grid;
+                grid-template-columns: repeat(4, minmax(0, 1fr));
+                gap: 20px;
+                margin: 28px 0;
+                padding: 0;
+                list-style: none;
+            }
+
+            .moon-events .moon-phase-card {
+                box-sizing: border-box;
+                display: flex;
+                flex-direction: column;
+                align-items: center;
+                min-width: 0;
+                margin: 0;
+                padding: 24px 16px;
+                border: 1px solid #334155;
+                border-radius: 16px;
+                background: linear-gradient(145deg, #182334, #0b1019);
+                box-shadow: 0 6px 18px rgba(0, 0, 0, 0.16);
+                color: #f1f5f9;
+                text-align: center;
+            }
+
+            .moon-events .moon-phase-image {
+                display: block;
+                width: 153px; /* Approximately 30% of the 509px originals. */
+                max-width: 100%;
+                height: auto;
+                margin: 0 0 18px;
+            }
+
+            .moon-events .moon-phase-name {
+                margin: 0 0 10px;
+                color: #f1f5f9;
+                font-size: 1.1rem;
+                font-weight: 600;
+                line-height: 1.4;
+            }
+
+            .moon-events .moon-phase-date {
+                display: block;
+                margin-top: auto;
+                color: #cbd5e1;
+                font-size: 0.875rem;
+                line-height: 1.6;
+                overflow-wrap: anywhere;
+            }
+
+            @media (max-width: 767px) {
+                .moon-events { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 14px; }
+            }
+
+            @media (max-width: 399px) {
+                .moon-events { grid-template-columns: 1fr; }
+            }
+        </style>
 
     
     </head>
@@ -209,11 +274,17 @@ usort($moonEvents, static function ($left, $right) {
 <?php elseif (!$moonEvents): ?>
     <p>No full moons are available for <?= $calendarYear ?>.</p>
 <?php else: ?>
-    <ol class="moon-events">
+    <ol class="moon-events" role="list">
         <?php foreach ($moonEvents as $event): ?>
-            <li class="mb-3">
-                <div class="textblocks"><?= $escapeMoonText($event['phase']) ?></div>
-                <div class="Working_H1B"><?= $escapeMoonText(date('r', $event['stamp'])) ?></div>
+            <li class="moon-phase-card">
+                <?php if (isset($moonPhaseImages[$event['phase']])): ?>
+                    <img class="moon-phase-image"
+                         src="phases/<?= $escapeMoonText($moonPhaseImages[$event['phase']]) ?>"
+                         alt="<?= $escapeMoonText($event['phase']) ?>"
+                         width="153" height="153" loading="lazy" decoding="async">
+                <?php endif; ?>
+                <h2 class="moon-phase-name"><?= $escapeMoonText($event['phase']) ?></h2>
+                <time class="moon-phase-date" datetime="<?= $escapeMoonText(date('c', $event['stamp'])) ?>"><?= $escapeMoonText(date('r', $event['stamp'])) ?></time>
             </li>
         <?php endforeach; ?>
     </ol>
