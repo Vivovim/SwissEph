@@ -1,5 +1,5 @@
 <?php
-set_include_path( '__HIDDEN__' );
+set_include_path( '/home/misfitx/neo/BoxINC/' );
 date_default_timezone_set( "America/Phoenix" );
 
 
@@ -8,7 +8,7 @@ if (session_status() == PHP_SESSION_NONE) {
     session_start();
 }
 
-require('swish.php'); // database auth file
+require('swish.php');
 
 
 
@@ -102,6 +102,66 @@ require('timezone.php');
 
 
     
+        <style>
+            .moon-events {
+                display: grid;
+                grid-template-columns: repeat(4, minmax(0, 1fr));
+                gap: 20px;
+                margin: 28px 0;
+                padding: 0;
+                list-style: none;
+            }
+
+            .moon-events .moon-phase-card {
+                box-sizing: border-box;
+                display: flex;
+                flex-direction: column;
+                align-items: center;
+                min-width: 0;
+                margin: 0;
+                padding: 24px 16px;
+                border: 1px solid #334155;
+                border-radius: 16px;
+                background: linear-gradient(145deg, #182334, #0b1019);
+                box-shadow: 0 6px 18px rgba(0, 0, 0, 0.16);
+                color: #f1f5f9;
+                text-align: center;
+            }
+
+            .moon-events .moon-phase-image {
+                display: block;
+                width: 153px; /* Approximately 30% of the 509px originals. */
+                max-width: 100%;
+                height: auto;
+                margin: 0 0 18px;
+            }
+
+            .moon-events .moon-phase-name {
+                margin: 0 0 10px;
+                color: #f1f5f9;
+                font-size: 1.1rem;
+                font-weight: 600;
+                line-height: 1.4;
+            }
+
+            .moon-events .moon-phase-date {
+                display: block;
+                margin-top: auto;
+                color: #cbd5e1;
+                font-size: 0.875rem;
+                line-height: 1.6;
+                overflow-wrap: anywhere;
+            }
+
+            @media (max-width: 767px) {
+                .moon-events { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 14px; }
+            }
+
+            @media (max-width: 399px) {
+                .moon-events { grid-template-columns: 1fr; }
+            }
+        </style>
+
     </head>
 <body onload="secondsXT()">
 
@@ -195,88 +255,8 @@ $titlex3 = $titlex3->format('r');
 
 
 
-$connection = new mysqli($host, $username, $password, $db);
-if ($connection->connect_error) die ($connection->connect_error);
-			
-			
-$query		= "SELECT * FROM moonphase ORDER BY recid DESC LIMIT 1";
-$results	= $connection->query($query);
-
-if (!$results) die ($connection->error);
- 
-$rows		= $results->num_rows;
- 
-print "<br/>";
- 
- for ($i = 0; $i < $rows;) {
- 
- $results->data_seek($i);
- 
- $row		= $results->fetch_array(MYSQLI_ASSOC);
-$title = $row['date'];
-// $data = $row['phase'];
-$new	= $row['nmoon'];
-$fq		= $row['fq'];
-$fmoon	= $row['fmoon'];
-$lq		= $row['lq'];
-$xnmoon	= $row['xnmoon'];
-	 
-	 $phase = (int)$data;
-	 //$phase = int($data);
-	 // $phase = $data;
-	 // $phase = number_format(floor($data), 0);
-	 // $phase	= round($data, 0);
-	
-	
-	$Zonex	= new DateTimeZone( "UTC" );
-	
-	
-	$title3 = "@" . $title;
-	
-	
-	$title2 = new DateTime($title3, $Zonex);
-$title2->setTimeZone(new DateTimeZone($TimeZone1));
-$title2 = $title2->format('r');
-	
-	
-	
-	
-	$new3 = "@" . $new;
-	
-	$new2 = new DateTime($new3, $Zonex);
-$new2->setTimeZone(new DateTimeZone($TimeZone1));
-$new2 = $new2->format('r');
-
-
-
-$fq3	=  "@" . $fq;
-
-
-$fq2 = new DateTime($fq3, $Zonex);
-$fq2->setTimeZone(new DateTimeZone($TimeZone1));
-$fq2 = $fq2->format('r');
-
-
-$fmoon3 =  "@" . $fmoon;
-
-$fmoon2 = new DateTime($fmoon3, $Zonex);
-$fmoon2->setTimeZone(new DateTimeZone($TimeZone1));
-$fmoon2 = $fmoon2->format('r');
-
-
-	
-$lq3 =  "@" . $lq;	
-
-$lq2 = new DateTime($lq3, $Zonex);
-$lq2->setTimeZone(new DateTimeZone($TimeZone1));
-$lq2 = $lq2->format('r');
-
-	
-$xmoon3	=  "@" . $xnmoon;
-	
-$xmoon2 = new DateTime($xmoon3, $Zonex);
-$xmoon2->setTimeZone(new DateTimeZone($TimeZone1));
-$xmoon2 = $xmoon2->format('r');
+// The current Moon image, sign, and age below still come from moonsign.
+	$phase = (int)$data;
 
 	$MoonPhase = "";
 	
@@ -284,6 +264,8 @@ $xmoon2 = $xmoon2->format('r');
 	 // code to make colls here.	
 	 
 	 
+	 
+	 // Do not edit Between this block.
 	 
 	print '<div>';
 	
@@ -363,6 +345,9 @@ $xmoon2 = $xmoon2->format('r');
 	if ($phase == 28 ) { $MoonPhase = "Dark Moon";} 
 	if ($phase == 29 ) { $MoonPhase = "Dark Moon";}
 	
+	// end do not edit this block.
+	
+	
 	
 	print '<div class="col-lg-12"><span class="NAV_Font">Moon Phase:</span><span class="DYKPlate_H1"> '. $MoonPhase. '</span><span class="NAV_Font">Sign:</span><span class="DYKPlate_H1"> ' . $sign . '</span><span class="DYKPlate_H1">' . $deg . '&deg;</span></div>';
 	
@@ -392,46 +377,117 @@ print '<div class="col-lg-12 float-left"><span class="NAV_Font">Age In Days: </s
 print '<div class="col-lg-12"><span class="NAV_Font">Updated:</span><span class="Working_H1B"> ' . $titlex3 . '</span></div>';
 	 print '<div class="clearfix"></div>';
 
-print '<div class="clearfix"></div>';
-print '<div class="col-md-4 float-left">';
-print '<div class="textblocks">New Moon</div>';
-print '<div><img src="moon/small/day-00.png" style="max-width: 25%" alt="moon phase"></div>';
-print '<div class="Working_H1B col-md-11">' . $new2 . '</div>';
-print '</div>';
 
-print '<div class="col-md-4 float-left">';
-print '<div class="textblocks">First Quarter</div>';
-print '<div><img src="moon/small/day-09.png" style="max-width: 25%" alt="moon phase"></div>';
-print '<div class="Working_H1B col-md-11">' . $fq2 . '</div>';
-print '</div>';
+// edit below this point. to make the cards for the moon phases.
 
-print '<div class="col-md-4 float-left">';
-print '<div class="textblocks">Full Moon</div>';
-print '<div><img src="moon/small/day-15.png" style="max-width: 25%" alt="moon phase"></div>';
-print '<div class="Working_H1B col-md-11">' . $fmoon2 . '</div>';
-print '</div>';
 
 print '<div class="clearfix"></div>';
-print '<div><p>&nbsp;</p><p>&nbsp;</p></div>';
-
-print '<div class="col-md-4 float-left">';
-print '<div class="textblocks">Last Quarter</div>';
-print '<div><img src="moon/small/day-22.png" style="max-width: 25%" alt="moon phase"></div>';
-print '<div class="Working_H1B col-md-11">' . $lq2 . '</div>';
-print '</div>';
-
-print '<div class="col-md-4 float-left">';
-print '<div class="textblocks">Future New Moon</div>';
-print '<div><img src="moon/small/day-00.png" style="max-width: 25%" alt="moon phase"></div>';
-print '<div class="Working_H1B col-md-11">' . $xmoon2 . '</div>';
-print '</div>';
-
-print '<div class="clearfix">&nbsp;</div>';
-	
- ++$i;
+// Current-month calendar from the monthly writer. Keep this independent of moonsign.
+// This zone must match CALENDAR_TIMEZONE in update-phase.pl.
+$moonCalendarZone = new DateTimeZone('America/Phoenix');
+$moonCalendarNow = new DateTimeImmutable('now', $moonCalendarZone);
+$moonMonthDate = $moonCalendarNow->format('Y-m-01');
+$moonMonthTitle = $moonCalendarNow->format('F Y');
+$moonDisplayZone = new DateTimeZone($TimeZone1);
+$escapeMoonText = static function ($value) {
+    return htmlspecialchars((string) $value, ENT_QUOTES | ENT_SUBSTITUTE, 'UTF-8');
+};
+$moonPhaseImages = [
+    'New Moon' => '01-New-Moon.png',
+    'Waxing Crescent' => '02-waxing-cresent.png',
+    'First Quarter' => '03-first-quarter.png',
+    'Waxing Gibbous' => '04-waxing-gibbius.png',
+    'Full Moon' => '05-full-moon.png',
+    'Waning Gibbous' => '06-wanning-gibbius.png',
+    'Last Quarter' => '07-last-quarter.png',
+    'Waning Crescent' => '08-wanning-cresent.png',
+    'Blue Moon' => '05-full-moon.png',
+];
+$moonEvents = [];
+$moonError = false;
+$moonConnection = null;
+$moonStatement = null;
+try {
+    $moonConnection = new mysqli($host, $username, $password, $db);
+    if ($moonConnection->connect_error) {
+        throw new RuntimeException($moonConnection->connect_error);
+    }
+    if (!$moonConnection->set_charset('utf8mb4')) {
+        throw new RuntimeException($moonConnection->error);
+    }
+    $moonStatement = $moonConnection->prepare(
+        'SELECT `events_json` FROM `moonphase_new` WHERE `month` = ? AND `timezone` = ? LIMIT 1'
+    );
+    if (!$moonStatement) {
+        throw new RuntimeException($moonConnection->error);
+    }
+    $moonCalendarTimezone = $moonCalendarZone->getName();
+    if (!$moonStatement->bind_param('ss', $moonMonthDate, $moonCalendarTimezone)
+        || !$moonStatement->execute()
+        || !$moonStatement->bind_result($moonEventsJson)) {
+        throw new RuntimeException($moonStatement->error);
+    }
+    $moonFetched = $moonStatement->fetch();
+    if ($moonFetched === false) {
+        throw new RuntimeException($moonStatement->error);
+    }
+    if ($moonFetched === true) {
+        $moonDecoded = json_decode($moonEventsJson, true);
+        if (json_last_error() !== JSON_ERROR_NONE || !is_array($moonDecoded)) {
+            throw new UnexpectedValueException('Invalid monthly events JSON');
+        }
+        foreach ($moonDecoded as $moonEvent) {
+            if (!is_array($moonEvent) || !isset($moonEvent['phase'])
+                || !is_string($moonEvent['phase'])
+                || !isset($moonPhaseImages[$moonEvent['phase']])
+                || !isset($moonEvent['timestamp']) || !is_int($moonEvent['timestamp'])) {
+                throw new UnexpectedValueException('Invalid monthly phase event');
+            }
+            $moonEvents[] = ['phase' => $moonEvent['phase'], 'stamp' => $moonEvent['timestamp']];
+        }
+    }
+} catch (Exception $moonException) {
+    error_log('Monthly moon calendar error: ' . $moonException->getMessage());
+    $moonEvents = [];
+    $moonError = true;
+} finally {
+    if ($moonStatement) {
+        $moonStatement->close();
+    }
+    if ($moonConnection !== null && !$moonConnection->connect_error) {
+        $moonConnection->close();
+    }
 }
 
-	
+usort($moonEvents, static function ($left, $right) {
+    return $left['stamp'] <=> $right['stamp'];
+});
+?>
+<section aria-labelledby="monthly-moon-heading">
+    <h2 id="monthly-moon-heading" class="About_H1">Moon Events for <?= $escapeMoonText($moonMonthTitle) ?></h2>
+    <?php if ($moonError): ?>
+        <p>The moon calendar is temporarily unavailable. Please try again later.</p>
+    <?php elseif (!$moonEvents): ?>
+        <p>No moon events are available for <?= $escapeMoonText($moonMonthTitle) ?>.</p>
+    <?php else: ?>
+        <ol class="moon-events" role="list">
+            <?php foreach ($moonEvents as $moonEvent): ?>
+                <?php $moonEventDate = (new DateTimeImmutable('@' . $moonEvent['stamp']))->setTimezone($moonDisplayZone); ?>
+                <li class="moon-phase-card">
+                    <img class="moon-phase-image"
+                         src="phases/<?= $escapeMoonText($moonPhaseImages[$moonEvent['phase']]) ?>"
+                         alt="<?= $escapeMoonText($moonEvent['phase']) ?>"
+                         width="153" height="153" loading="lazy" decoding="async">
+                    <h3 class="moon-phase-name"><?= $escapeMoonText($moonEvent['phase']) ?></h3>
+                    <time class="moon-phase-date" datetime="<?= $escapeMoonText($moonEventDate->format('c')) ?>"><?= $escapeMoonText($moonEventDate->format('r')) ?></time>
+                </li>
+            <?php endforeach; ?>
+        </ol>
+    <?php endif; ?>
+</section>
+<div class="clearfix">&nbsp;</div>
+<?php
+
 // print '<div class="clearfix"></div>';
 // print '<div class="col-lg-12 float-left"><span class="NAV_Font">Sign: </span><span class="About_H1">' . $sign . '</span></div>';
 			
@@ -458,7 +514,6 @@ print '<div class="clearfix">&nbsp;</div>';
     <p>Read our <a href="https://neo.ctopher.me/About.php">About Page</a> for more details</p>
 </div>
 
-		<div class="About_Body">BETA TESTING <a href="https://neo.ctopher.me/Moon-TESTING.php">Check it</a></div>
 		
 		</div>
 		
