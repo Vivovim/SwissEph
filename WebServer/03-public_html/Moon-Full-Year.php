@@ -1,5 +1,5 @@
 <?php
-set_include_path( '__HIDDEN__' );
+set_include_path( '/path/to/support/files/' );
 date_default_timezone_set( "America/Phoenix" );
 
 
@@ -136,7 +136,7 @@ $moonPhaseImages = [
 <html lang="en" >
     <head>
         <meta charset="utf-8" />
-        <title>Neo Ctopher | Full Moons for <?= $calendarYear ?></title>
+        <title>Astro.Ctopher.Me | Full Moons for <?= $calendarYear ?></title>
         
         
         
@@ -144,23 +144,20 @@ $moonPhaseImages = [
         <link href="css/bootstrap.css" rel="stylesheet" type="text/css" />
        
 
-        <link href="https://neo.ctopher.me/css/misfit-ctopher-css.css?reload=true" rel="stylesheet" type="text/css" />
+        <link href="https://astro.ctopher.me/css/misfit-ctopher-css.css?reload=true" rel="stylesheet" type="text/css" />
 
         
-        <script src="js/jquery-3.5.1.min.js"></script>
+        <script src="js/jquery-3.6.0.min.js"></script>
         <script src="js/bootstrap.min.js"></script> 
 
 
-        <link href="css/lightbox.css" rel="stylesheet" type="text/css">
+      
         
         
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         
 		
 		
-
-
-<script src="js/secondsXT.js"></script>
 
         <style>
             .moon-events {
@@ -224,12 +221,12 @@ $moonPhaseImages = [
 
     
     </head>
-<body onload="secondsXT()">
+<body>
 
 
     
 <!-- Nav bar Code Here -->  
-<?php require('Neo-Nav-Bar.php'); ?>
+<?php require('Nav-Bar.php'); ?>
 <!-- end Nav Bar Code --> 
         
         
@@ -299,12 +296,13 @@ $moonPhaseImages = [
             <?php endforeach; ?>
             <div class="clearfix"></div>
             <p><a href="Moon-Full-Year.php?year=<?= $calendarYear ?>">All Full Moons for <?= $calendarYear ?></a></p>
-            <form method="get">
-                <label for="moon-calendar-year">Calendar year</label>
-                <input id="moon-calendar-year" type="number" name="year" min="1000" max="9999" value="<?= $calendarYear ?>" required>
-
-                <button type="submit">Show calendar</button>
-            </form>	
+             <div class="About_Body">
+    Astronomical calculations powered by
+    <a href="https://www.astro.com/swisseph/" target="_blank" rel="noopener">
+        Swiss Ephemeris
+    </a>.
+     <p>Read our <a href="https://astro.ctopher.me/About.php">About Page</a> for more details. Source <a href="https://github.com/Vivovim/SwissEph">Code</a></p>
+</div>			
 		</div>
 		
 		<p>&nbsp;</p>
@@ -359,7 +357,7 @@ $moonPhaseImages = [
   <div class="clearSolid">
 	<p>&nbsp;</p></div>      
 <!-- Footer IS Magic -->
-<?php require('Neo-Magic-Footer.php'); ?>
+<?php require('Footer.php'); ?>
 </div>        
         
 </footer>

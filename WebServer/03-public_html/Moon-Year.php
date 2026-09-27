@@ -1,5 +1,5 @@
 <?php
-set_include_path( '__HIDDEN__' );
+set_include_path( '/path/to/support/files/' );
 date_default_timezone_set( "America/Phoenix" );
 
 
@@ -143,7 +143,7 @@ $moonPhaseImages = [
 <html lang="en" >
     <head>
         <meta charset="utf-8" />
-        <title>Neo Ctopher | Moon Events for <?= $monthsx[$month] ?> <?= $calendarYear ?></title>
+        <title>Astro.Ctopher.Me | Moon Events for <?= $monthsx[$month] ?> <?= $calendarYear ?></title>
         
         
         
@@ -163,9 +163,6 @@ $moonPhaseImages = [
         
 		
 		
-
-
-<script src="js/secondsXT.js"></script>
 
         <style>
             .moon-events {
@@ -229,12 +226,12 @@ $moonPhaseImages = [
 
     
     </head>
-<body onload="secondsXT()">
+<body>
 
 
     
 <!-- Nav bar Code Here -->  
-<?php require('Neo-Nav-Bar.php'); ?>
+<?php require('Nav-Bar.php'); ?>
 <!-- end Nav Bar Code --> 
         
         
@@ -304,12 +301,13 @@ $moonPhaseImages = [
             <?php endforeach; ?>
             <div class="clearfix"></div>
             <p><a href="Moon-Full-Year.php?year=<?= $calendarYear ?>">All Full Moons for <?= $calendarYear ?></a></p>
-            <form method="get">
-                <label for="moon-calendar-year">Calendar year</label>
-                <input id="moon-calendar-year" type="number" name="year" min="1000" max="9999" value="<?= $calendarYear ?>" required>
-                <input type="hidden" name="month" value="<?= $month ?>">
-                <button type="submit">Show calendar</button>
-            </form>	
+            <div class="About_Body">
+    Astronomical calculations powered by
+    <a href="https://www.astro.com/swisseph/" target="_blank" rel="noopener">
+        Swiss Ephemeris
+    </a>.
+    <p>Read our <a href="https://astro.ctopher.me/About.php">About Page</a> for more details. Source <a href="https://github.com/Vivovim/SwissEph">Code</a></p>
+</div>			
 		</div>
 		
 		<p>&nbsp;</p>
@@ -364,7 +362,7 @@ $moonPhaseImages = [
   <div class="clearSolid">
 	<p>&nbsp;</p></div>      
 <!-- Footer IS Magic -->
-<?php require('Neo-Magic-Footer.php'); ?>
+<?php require('Footer.php'); ?>
 </div>        
         
 </footer>

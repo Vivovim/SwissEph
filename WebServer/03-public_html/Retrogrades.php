@@ -1,5 +1,5 @@
 <?php
-set_include_path( '__HIDDEN__' );
+set_include_path( '/path/to/support/files/' );
 date_default_timezone_set( "America/Phoenix" );
 
 ini_set( 'session.use_only_cookies', true );
@@ -12,6 +12,7 @@ if (session_status() == PHP_SESSION_NONE) {
 
 
 
+require('timezone.php');
 
 
    
@@ -23,21 +24,18 @@ if (session_status() == PHP_SESSION_NONE) {
 <html lang="en">
     <head>
         <meta charset="utf-8">
-        <title>Neo Ctopher Me | Planet Retrogrades</title>
+        <title>Astro.Ctopher.Me | Planet Retrogrades</title>
         
         
         
         <link rel="stylesheet" href="https://use.typekit.net/cfx5zcm.css">
-        <link href="https://neo.ctopher.me/css/bootstrap.css" rel="stylesheet" type="text/css">
-        <link href="https://neo.ctopher.me/css/misfit-ctopher-css.css?reload=true" rel="stylesheet" type="text/css">
-        <script src="https://neo.ctopher.me/js/jquery-3.5.1.min.js"></script>
-        <script src="https://neo.ctopher.me/js/bootstrap.min.js"></script>
+        <link href="https://astro.ctopher.me/css/bootstrap.css" rel="stylesheet" type="text/css">
+        <link href="https://astro.ctopher.me/css/misfit-ctopher-css.css?reload=true" rel="stylesheet" type="text/css">
+        <script src="https://astro.ctopher.me/js/jquery-3.6.0.min.js"></script>
+        <script src="https://astro.ctopher.me/js/bootstrap.min.js"></script>
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
     
  
-
-<script src="https://neo.ctopher.me/js/secondsXT.js"></script>
-
 
 <style>
     
@@ -49,12 +47,12 @@ if (session_status() == PHP_SESSION_NONE) {
         
         
 </head>
-<body onload="secondsXT()">
+<body>
 
 
     
 <!-- Nav bar Code Here -->  
-<?php require('Neo-Nav-Bar.php'); ?>
+<?php require('Nav-Bar.php'); ?>
 <!-- end Nav Bar Code --> 
         
         
@@ -245,9 +243,10 @@ Illusion of Backward Motion: As Earth passes the outer planet or is passed by an
 <div class="clearfix"></div>
 <div>
  <p class="DYKPlate">
-    <a href="https://neo.ctopher.me/Mercury.php">Mercury Page</a>
+    <a href="https://astro.ctopher.me/Mercury.php">Mercury Page</a>
     </p>
 </div>
+<hr>
 <p>&nbsp;</p>
 <p>&nbsp;</p>	
 <div class="clearfix"></div>
@@ -354,6 +353,10 @@ Illusion of Backward Motion: As Earth passes the outer planet or is passed by an
 </div>
 
 <div class="clearfix"></div> 
+
+<div class="NAV_Font">All times <?php echo $TimeZone1; ?> and are approximate</div>
+		<div class="About_Body">Set your timezone here: <a href="https://astro.ctopher.me/TimeZone.php">TimeZone Settings</a></div>
+			
 		
 		<div class="About_Body">
     Astronomical calculations powered by
@@ -361,7 +364,7 @@ Illusion of Backward Motion: As Earth passes the outer planet or is passed by an
         Swiss Ephemeris
     </a>.
     
-    <p>Read our <a href="https://neo.ctopher.me/About.php">About Page</a> for more details</p>
+    <p>Read our <a href="https://astro.ctopher.me/About.php">About Page</a> for more details. Source: <a href="https://github.com/Vivovim/SwissEph">Code</a></p>
 </div>
 		
 	</div>
@@ -419,7 +422,7 @@ Illusion of Backward Motion: As Earth passes the outer planet or is passed by an
         
 <!-- Footer IS Magic -->
 <footer>
-<?php require('Neo-Magic-Footer.php'); ?>
+<?php require('Footer.php'); ?>
 </footer>        
         
 

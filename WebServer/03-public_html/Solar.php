@@ -1,5 +1,5 @@
 <?php
-set_include_path( '__HIDDEN__' );
+set_include_path( '/path/to/support/files/' );
 date_default_timezone_set( "America/Phoenix" );
 
 
@@ -70,14 +70,14 @@ require('timezone.php');
 <html lang="en">
     <head>
         <meta charset="utf-8">
-        <title>Neo Ctopher | Solar Events!</title>
+        <title>Astro.Ctopher.Me | Solar Events!</title>
         
         
         
         <link rel="stylesheet" href="https://use.typekit.net/cfx5zcm.css">
         <link href="css/bootstrap.css" rel="stylesheet" type="text/css">
         <link href="css/misfit-ctopher-css.css?reload=true" rel="stylesheet" type="text/css">
-        <script src="js/jquery-3.5.1.min.js"></script>
+        <script src="js/jquery-3.6.0.min.js"></script>
         <script src="js/bootstrap.min.js"></script> 
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="description" content="Mercury Retrograge Page!">
@@ -88,17 +88,14 @@ require('timezone.php');
 
 
 
-<script src="js/secondsXT.js"></script>
-
-
     
     </head>
-<body onload="secondsXT()">
+<body>
 
 
     
 <!-- Nav bar Code Here -->  
-<?php require('Neo-Nav-Bar.php'); ?>
+<?php require('Nav-Bar.php'); ?>
 <!-- end Nav Bar Code --> 
         
         
@@ -114,11 +111,7 @@ require('timezone.php');
         
         
         
-<main>        
-        
-        
-        
-        
+<main> 
                 
                 
 <!-- Content Below -->
@@ -177,17 +170,17 @@ $now		= time();
 
 
 
-if ($now > $direct) {
+//if ($now > $direct) {
 
-} else {
+//} else {
 
 print '<div class="About_Body">';
 print '<div>' . $number . '</div><div>';
-print "<p>Event $event</p>";
-print "<p>On on $DIRECTX</p>";
+print "<p>$event</p>";
+print "<p>On $DIRECTX</p>";
 print '</div>';
 print '</div>';
-}
+// }
 	 
 	
  ++$number;
@@ -197,15 +190,15 @@ print '</div>';
 			
 ?>
 		<div class="NAV_Font">All times are <?php echo $TimeZone1; ?> and approximate</div>
-		<div class="About_Body">Change your TimeZone here: <a href="https://neo.ctopher.me/Overview.php">TimeZone Settings</a></div>
+		<div class="About_Body">Change your TimeZone here: <a href=" https://astro.ctopher.me/TimeZone.php">TimeZone Settings</a></div>
 		
 		<div class="About_Body">
     Astronomical calculations powered by
     <a href="https://www.astro.com/swisseph/" target="_blank" rel="noopener">
         Swiss Ephemeris
     </a>.
-    
-    <p>Read our <a href="https://neo.ctopher.me/About.php">About Page</a> for more details</p>
+    <p></p>
+    <p>Read our <a href="https://astro.ctopher.me/About.php">About Page</a> for more details. Source <a href="https://github.com/Vivovim/SwissEph">Code</a></p>
 </div>			
 		</div>
 						
@@ -264,7 +257,7 @@ print '</div>';
   <div class="clearSolid">
 	<p>&nbsp;</p></div>      
 <!-- Footer IS Magic -->
-<?php require('Neo-Magic-Footer.php'); ?>
+<?php require('Footer.php'); ?>
 </div>        
 </footer>
         

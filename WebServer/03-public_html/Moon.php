@@ -1,6 +1,5 @@
 <?php
-set_include_path( '/home/misfitx/neo/BoxINC/' );
-date_default_timezone_set( "America/Phoenix" );
+set_include_path( '/path/to/support/files/' );
 
 
 ini_set( 'session.use_only_cookies', true );
@@ -13,38 +12,39 @@ require('swish.php');
 
 
 require('timezone.php');
+date_default_timezone_set('UTC');
+$moonUserZone = new DateTimeZone($TimeZone1);
+$moonUtcNow = new DateTimeImmutable('now', new DateTimeZone('UTC'));
+$moonUserNow = $moonUtcNow->setTimezone($moonUserZone);
 
 
-        $YEAR2 = date( 'Y' );
+        $YEAR2 = (int) $moonUserNow->format('Y');
 
-        $YEAR_Future2 = $YEAR2 + "1";
+        $YEAR_Future2 = $YEAR2 + 1;
 
 
-        // Edit this if needed....
-        // $year22 = mktime(00, 00, 00, 1, 1, $YEAR_Future2, 0);
+        $year22 = (new DateTimeImmutable($YEAR_Future2 . '-01-01', $moonUserZone))->getTimestamp();
 
-        $year22 = mktime( 00, 00, 00, 1, 1, $YEAR_Future2 );
-
-        $DATE_NOW = date( 'U' );
+        $DATE_NOW = $moonUtcNow->getTimestamp();
 
         $Seconds_New_Year = $year22 - $DATE_NOW;
 
         $Seconds_New_YearX = $Seconds_New_Year - "1";
 
 
-        $dow = date( 'l' );
-        $date = date( 'F\ j, Y' );
-        $doy = date( 'z' );
-        $time = date( 'G:i:s' );
+        $dow = $moonUserNow->format('l');
+        $date = $moonUserNow->format('F j, Y');
+        $doy = (int) $moonUserNow->format('z');
+        $time = $moonUserNow->format('G:i:s');
 
         // Offset Leap year;
 
         $doy = $doy + "1";
 
 
-        $seconds = date( 's' );
-        $minutes = date( 'i' );
-        $hour = date( 'G' );
+        $seconds = $moonUserNow->format('s');
+        $minutes = $moonUserNow->format('i');
+        $hour = $moonUserNow->format('G');
 
         $set_hours = "23" - $hour;
         $set_minute = "59" - $minutes;
@@ -62,13 +62,13 @@ require('timezone.php');
 
         $total = $first + $min + $set_seconds;
 
-		$month = date("F");
+		$month = $moonUserNow->format('F');
 ?>
 <!DOCTYPE html>
 <html lang="en" >
     <head>
         <meta charset="utf-8" />
-        <title>Neo Ctopher | Current Moon Zodiac Phases for today!</title>
+        <title>Astro.Ctopher.Me | Current Moon Zodiac Phases for today!</title>
         
         
         
@@ -78,17 +78,14 @@ require('timezone.php');
 <link href="css/misfit-ctopher-css.css" rel="stylesheet" type="text/css" />
 
         
-        <script src="js/jquery-3.5.1.min.js"></script>
+        <script src="js/jquery-3.6.0.min.js"></script>
         <script src="js/bootstrap.min.js"></script> 
-        <link href="css/lightbox.css" rel="stylesheet" type="text/css">
-        
+       
         
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <link rel="shortcut icon" href="https://neo.ctopher.me/favicon.ico"/>
 		
-		<script src="js/jquery.form.min.js"></script>
-
-
+	
     
      <meta name="description" content="Moon Phase Today!">
 
@@ -98,7 +95,7 @@ require('timezone.php');
 		
  
 
-<script src="js/secondsXT.js"></script>
+
 
 
     
@@ -163,12 +160,12 @@ require('timezone.php');
         </style>
 
     </head>
-<body onload="secondsXT()">
+<body>
 
 
     
 <!-- Nav bar Code Here -->  
-<?php require('Neo-Nav-Bar.php'); ?>
+<?php require('Nav-Bar.php'); ?>
 <!-- end Nav Bar Code --> 
         
         
@@ -193,8 +190,6 @@ require('timezone.php');
 <!-- Content Below -->
         
 <div class="container">
-	
-	
 	
 	<div class="float-left col-lg-12">
 	
@@ -232,6 +227,7 @@ $sign = $row2['sign'];
 $deg = $row2['deg'];
 $lon	= $row2['lon'];
 $data = $row2['phase'];
+$phase2 = $row2['phase2'];
 $TitleX = $row2['date'];
 
 
@@ -245,7 +241,7 @@ $Zonex	= new DateTimeZone( "UTC" );
 	
 	
 	$titlex3= new DateTime($titlex2, $Zonex);
-$titlex3->setTimeZone(new DateTimeZone($TimeZone1));
+$titlex3->setTimeZone($moonUserZone);
 $titlex3 = $titlex3->format('r');
 	
 
@@ -349,7 +345,24 @@ $titlex3 = $titlex3->format('r');
 	
 	
 	
-	print '<div class="col-lg-12"><span class="NAV_Font">Moon Phase:</span><span class="DYKPlate_H1"> '. $MoonPhase. '</span><span class="NAV_Font">Sign:</span><span class="DYKPlate_H1"> ' . $sign . '</span><span class="DYKPlate_H1">' . $deg . '&deg;</span></div>';
+	
+echo '<div class="d-flex flex-column">';
+
+echo '  <div class="d-flex flex-row">';
+echo '    <div class="p-2 NAV_Font">Moon Phase</div>';
+echo '    <div class="p-2 DYKPlate_H1">' . $phase2 . '</div>';
+echo '  </div>';
+
+echo '  <div class="d-flex flex-row">';
+echo '    <div class="p-2 NAV_Font">Sign</div>';
+echo '    <div class="p-2 DYKPlate_H1">' . $sign . '</div>';
+echo '    <div class="p-2 DYKPlate_H1">' . $deg . '&deg;</div>';
+echo '  </div>';
+
+echo '</div>';
+
+	
+//	print '<div class="col-lg-12"><span class="NAV_Font">Moon Phase:</span><span class="DYKPlate_H1"> '. $MoonPhase. '</span><span class="NAV_Font">Sign:</span><span class="DYKPlate_H1"> ' .  . '</span><span class="DYKPlate_H1">' . $deg . '&deg;</span></div>';
 	
 	
 	print '</div>';
@@ -382,13 +395,12 @@ print '<div class="col-lg-12"><span class="NAV_Font">Updated:</span><span class=
 
 
 print '<div class="clearfix"></div>';
-// Current-month calendar from the monthly writer. Keep this independent of moonsign.
-// This zone must match CALENDAR_TIMEZONE in update-phase.pl.
-$moonCalendarZone = new DateTimeZone('America/Phoenix');
-$moonCalendarNow = new DateTimeImmutable('now', $moonCalendarZone);
+// The monthly writer stores UTC calendar months; display each event in the user's zone.
+$moonCalendarZone = $moonUtcNow->getTimezone();
+$moonCalendarNow = $moonUtcNow;
 $moonMonthDate = $moonCalendarNow->format('Y-m-01');
 $moonMonthTitle = $moonCalendarNow->format('F Y');
-$moonDisplayZone = new DateTimeZone($TimeZone1);
+$moonDisplayZone = $moonUserZone;
 $escapeMoonText = static function ($value) {
     return htmlspecialchars((string) $value, ENT_QUOTES | ENT_SUBSTITUTE, 'UTF-8');
 };
@@ -497,12 +509,12 @@ usort($moonEvents, static function ($left, $right) {
 		</div>
 		
 		
-		<div><p>&nbsp;</p><p>&nbsp;</p></div>
-		<div class="textblocks"><a href="https://neo.ctopher.me/Moon-Full-Year.php">Yearly Calendar Of Full Moons</a></div>
+		<div><p>&nbsp;</p></div>
+		<div class="textblocks"><a href="https://astro.ctopher.me/Moon-Full-Year.php">Yearly Calendar Of Full Moons</a></div>
 		
 		
 		<div class="NAV_Font">All times <?php echo $TimeZone1; ?> and are approximate</div>
-		<div class="About_Body">Set your timezone here: <a href="https://neo.ctopher.me/Overview.php">TimeZone Settings</a></div>
+		<div class="About_Body">Set your timezone here: <a href="https://astro.ctopher.me/TimeZone.php">TimeZone Settings</a></div>
 			
 			
 			<div class="About_Body">
@@ -510,19 +522,13 @@ usort($moonEvents, static function ($left, $right) {
     <a href="https://www.astro.com/swisseph/" target="_blank" rel="noopener">
         Swiss Ephemeris
     </a>.
-    
-    <p>Read our <a href="https://neo.ctopher.me/About.php">About Page</a> for more details</p>
+    <p>Read our <a href="https://astro.ctopher.me/About.php">About Page</a> for more details. Source <a href="https://github.com/Vivovim/SwissEph">Code</a></p>
 </div>
 
 		
 		</div>
 		
-		<p>&nbsp;</p>
-		<p>&nbsp;</p>
-		<p>&nbsp;</p>
-		<p>&nbsp;</p>
-		<p>&nbsp;</p>
-		<p>&nbsp;</p>
+		
 		<p>&nbsp;</p>
 		<p>&nbsp;</p>
 
@@ -567,7 +573,7 @@ usort($moonEvents, static function ($left, $right) {
   <div class="clearSolid">
 	<p>&nbsp;</p></div>      
 <!-- Footer IS Magic -->
-<?php require('Neo-Magic-Footer.php'); ?>
+<?php require('Footer.php'); ?>
 </div>        
         
 

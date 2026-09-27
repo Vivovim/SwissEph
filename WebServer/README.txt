@@ -36,6 +36,6 @@ Requires Swiss Ephemeris and the appropriate Perl bindings to be installed separ
 
 These are the perl scripts that are being used on:
 
-https://neo.ctopher.me 
+https://astro.ctopher.me 
 
 

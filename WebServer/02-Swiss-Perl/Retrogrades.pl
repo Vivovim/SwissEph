@@ -105,7 +105,7 @@ if ($opt{dry_run}) {
     for my $row (@rows) {
         my ($planet_name, $retrograde_begin_ts, $direct_begin_ts) = @$row;
         # Names come exclusively from the fixed @PLANETS list above.
-        say "INSERT INTO `masterbox`.`Planets_Retrogrades` "
+        say "INSERT INTO `SwissAstro`.`Planets_Retrogrades` "
             . "(`Planet`, `Retrograde_Begin`, `Direct_Begin`) "
             . "VALUES ('$planet_name', $retrograde_begin_ts, $direct_begin_ts);";
     }
@@ -119,7 +119,7 @@ else {
 
     my $ok = eval {
         my $sth = $dbh->prepare(q{
-            INSERT INTO `masterbox`.`Planets_Retrogrades`
+            INSERT INTO `SwissAstro`.`Planets_Retrogrades`
                 (`Planet`, `Retrograde_Begin`, `Direct_Begin`)
             VALUES (?, ?, ?)
         });
@@ -137,7 +137,7 @@ else {
         die $error;
     }
     $dbh->disconnect();
-    say 'Inserted ' . scalar(@rows) . ' rows into masterbox.Planets_Retrogrades.';
+    say 'Inserted ' . scalar(@rows) . ' rows into SwissAstro.Planets_Retrogrades.';
 }
 
 sub next_retrograde_window {
@@ -264,7 +264,7 @@ Examples:
   /usr/bin/perl Retrogrades-Planets-Full.pl
   /usr/bin/perl Retrogrades-Planets-Full.pl --dry-run --start-ts 1785283200
 
-Append one row per planet to masterbox.Planets_Retrogrades using the fields
+Append one row per planet to SwissAstro.Planets_Retrogrades using the fields
 Planet, Retrograde_Begin, and Direct_Begin, in this order:
 Venus, Mars, Jupiter, Saturn, Uranus, Neptune, Pluto. Mercury is excluded.
 
