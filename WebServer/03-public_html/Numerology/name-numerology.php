@@ -90,7 +90,7 @@ if (!checkdate((int) $month1, (int) $day1, (int) $year1)) {
 $date   = "{$day1}:{$month1}:{$year1}";
 
 // Run numerology command
-$command = '/home/misfitx/astro/public_html/cgi-bin/WEB-Numerology.pl ' . escapeshellarg($date);
+$command = '/home/public_html/cgi-bin/WEB-Numerology.pl ' . escapeshellarg($date);
 $vaX = exec($command);
 
 // Validate and assign name fields
