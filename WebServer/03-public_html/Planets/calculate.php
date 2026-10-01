@@ -42,7 +42,7 @@ header('Location: https://astro.ctopher.me/Planets/calculate-planets.php');
 
 if (ctype_digit($year)&& ctype_digit($month) && ctype_digit($day)) {
 
-$command	= "/home/misfitx/astro/public_html/cgi-bin/calculate-planets.pl $dataC";
+$command	= "/home/public_html/cgi-bin/calculate-planets.pl $dataC";
 
 $commandX	= escapeshellcmd( $command );
 $output		= array();
