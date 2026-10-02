@@ -32,3 +32,10 @@ Swiss Ephemeris and its associated files remain subject to their respective copy
 
 
 Requires Swiss Ephemeris and the appropriate Perl bindings to be installed separately.
+
+
+These are the perl scripts that are being used on:
+
+https://astro.ctopher.me 
+
+
