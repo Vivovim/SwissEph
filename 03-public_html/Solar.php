@@ -1,5 +1,5 @@
 <?php
-set_include_path( '/path/to/support/files/' );
+set_include_path( '__HIDDEN__' );
 date_default_timezone_set( "America/Phoenix" );
 
 
@@ -74,16 +74,21 @@ require('timezone.php');
         
         
         
-        <link rel="stylesheet" href="https://use.typekit.net/cfx5zcm.css">
-        <link href="css/bootstrap.css" rel="stylesheet" type="text/css">
-        <link href="css/misfit-ctopher-css.css?reload=true" rel="stylesheet" type="text/css">
-        <script src="js/jquery-3.6.0.min.js"></script>
-        <script src="js/bootstrap.min.js"></script> 
-        <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="Mercury Retrograge Page!">
-	<meta name="keywords" content="Mercury Retrograde, Mercury Retrogrades, Mercury Retrogrades for my time zone, Current Mercury Retrograde, Is Mercury Retrograde" >
-	<meta name="author" content="Neo Ctopher" >
+<link rel="stylesheet" href="https://use.typekit.net/cfx5zcm.css">
+<link href="css/bootstrap.css" rel="stylesheet" type="text/css">
+<link href="https://astro.ctopher.me/css/misfit-ctopher-css.css?reload=true" rel="stylesheet" type="text/css">
+<script src="js/jquery-3.5.1.min.js"></script> 
+<script src="js/bootstrap.min.js"></script> 
 
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+
+
+    
+     <meta name="description" content="About This Site: Neo Ctopher!">
+
+	<meta name="keywords" content="About Neo Ctopher, Personal Website, About what went into making this site. Credits." >
+	<meta name="author" content="Neo Ctopher" >
 
 
 
@@ -189,6 +194,81 @@ print '</div>';
 			
 			
 ?>
+
+
+
+<?php 
+
+$connection = new mysqli($host, $username, $password, $db);
+if ($connection->connect_error) die ($connection->connect_error);
+			
+			
+$query		= "SELECT * FROM Eclipse ORDER BY `utc_timestamp` ASC";
+$results	= $connection->query($query);
+
+if (!$results) die ($connection->error);
+ 
+$rows		= $results->num_rows;
+$number		= 1;
+$box		= 0;
+
+ 
+ for ($i = 0; $i < $rows;) {
+ 
+ $results->data_seek($i);
+ 
+ $row		= $results->fetch_array(MYSQLI_ASSOC);
+$event	= $row['event'];
+$type	= $row['type'];
+$TS		= $row['utc_timestamp'];
+
+
+$TS1		= date("Y/m/d H:i:s", $TS);
+
+
+$TS2	= new DateTime($TS1);
+
+
+$TS2->setTimezone( new DateTimeZone($TimeZone1));
+
+// $RETROX		= $retrox->format('m/d/Y H:i:s');
+// $DIRECTX	= $directx->format('m/d/Y H:i:s');
+
+$TS3	= $TS2->format('r');
+
+
+
+
+$now		= time();
+
+
+
+//if ($now > $direct) {
+
+//} else {
+print "<p>Eclipse Table</p>";
+print '<div class="d-flex flex-row About_Body">';
+print '<div class="p-2">' . $number . '</div>';
+print '<div class="p-2">' . $event . '</div>';
+print '<div class="p-2">' . $type . '</div>';
+print '<div class="p-2">' . $TS3 . '</div>';
+print '</div>';
+
+// }
+	 
+	
+ ++$number;
+ ++$i;
+}
+			
+			
+?>
+
+
+
+
+
+
 		<div class="NAV_Font">All times are <?php echo $TimeZone1; ?> and approximate</div>
 		<div class="About_Body">Change your TimeZone here: <a href=" https://astro.ctopher.me/TimeZone.php">TimeZone Settings</a></div>
 		
